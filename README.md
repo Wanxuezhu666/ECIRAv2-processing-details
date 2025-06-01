@@ -167,7 +167,7 @@ Multiplying AAI calibration coefficients (generated in step 6.2) with crop-AEI (
   This is the final crop growing area!!!   
   (Done in Python: **_Step_8_Crop_growing_area.py → Section 8.5_**) 
 
-## Step 9: Quick check data
+## Step 9: Quick check data（optional）
    Check whether the pixel values exceed 100.
    (Done in Python: **_Step_9_Check_data.py_**) 
 
