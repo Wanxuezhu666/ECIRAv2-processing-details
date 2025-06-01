@@ -8,7 +8,7 @@ import numpy as np
 import glob
 import os
 
-os.chdir(r"E:\01_Reseach_papers\R1_irrigation_grid_map\Depository") 
+os.chdir(r"xxx") 
 
 # Step 8.1 Generate new UAA = maximum (old UAA, total AAI)
 #================================================================================
@@ -29,7 +29,7 @@ for year in range(2010, 2021):
     out = f"ECIRA_v2/UAA/UAA_{year}.tif"
     max_geotiff(tif1, tif2, out)
 
-# check_single_folder(r"E:\01_Reseach_papers\R1_irrigation_grid_map\Depository\ECIRA_v2\UAA")
+# check_single_folder(r"xxx\ECIRA_v2\UAA")
 # See step 9
 
 # Step 8.2 Update crop growing area = UAA (step 8.1) * crop share (step 4.4)
@@ -76,11 +76,11 @@ for num in range(11):
 
 
 
-check_double_folder(r"E:\01_Reseach_papers\R1_irrigation_grid_map\Depository\Step_08\Crop_growing_area", 100)
+check_double_folder(r"xxx\Step_08\Crop_growing_area", 100)
 
 
 # Step 8.3 Calculate crop-specific rainfed area
-#================================================================================
+# ================================================================================
 from osgeo import gdal, gdalconst
 
 os.chdir(r"E:\01_Reseach_papers\R1_irrigation_grid_map\Depository") 
@@ -131,16 +131,13 @@ for num in range(11):
     Difference_two_images(f"Step_08/Crop_growing_area/{year}/crop_area_{year}_layer_28.tif", f"ECIRA_v2/Crop_IR/{year}/VINY_IR_A_{year}.tif",  f"ECIRA_v2/Crop_RF/{year}/VINY_RF_A_{year}.tif")
 
 
-check_double_folder(r"E:\01_Reseach_papers\R1_irrigation_grid_map\Depository\ECIRA_v2\Crop_RF",100)
-
-
-
+check_double_folder(r"xxx\ECIRA_v2\Crop_RF",100)
 
 # Step 8.4 Calculate the total rainfed area
 #================================================================================
 
 
-os.chdir(r"E:\01_Reseach_papers\R1_irrigation_grid_map\Depository\ECIRA_v2") 
+os.chdir(r"xxx\ECIRA_v2") 
 
 def sum_geotiffs(input_folder, output_file):
     geotiff_files = glob.glob(os.path.join(input_folder, '*.tif'))
@@ -167,16 +164,16 @@ for i in range(11):
     output_file = f'Total_RF/Total_RF_A_{year}.tif'
     sum_geotiffs(input_folder, output_file)
 
-check_single_folder(r"E:\01_Reseach_papers\R1_irrigation_grid_map\Depository\ECIRA_v2\Total_RF",threshold = 100)
+check_single_folder(r"xxx\ECIRA_v2\Total_RF",threshold = 100)
 
-#----------Step 8.5 Generate new crop growing area----------------
-#================================================================================
+# Step 8.5 Generate new crop growing area
+# ================================================================================
 
 import os
 import rasterio
 import numpy as np
 
-os.chdir(r"E:\01_Reseach_papers\R1_irrigation_grid_map\Depository\ECIRA_v2") 
+os.chdir(r"xxx\ECIRA_v2") 
 
 def add_geotiff(tif1_path, tif2_path, out_path):
     with rasterio.open(tif1_path) as src1, rasterio.open(tif2_path) as src2:
@@ -204,14 +201,13 @@ def batch_add(ir_root, rf_root, out_root):
                 add_geotiff(ir_path, rf_path, out_path)
         print(f"Processing year {year}")
 
-# 示例调用
 batch_add(
     ir_root=r"Crop_IR",
     rf_root=r"Crop_RF",
     out_root=r"Crop_A"
 )
 
-check_double_folder(r"E:\01_Reseach_papers\R1_irrigation_grid_map\Depository\ECIRA_v2\Crop_A",100)
+check_double_folder(r"xxx\ECIRA_v2\Crop_A",100)
 
 
 
