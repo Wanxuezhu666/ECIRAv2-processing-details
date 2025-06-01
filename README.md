@@ -92,9 +92,9 @@ Note: OTHER = ROOF + SOYA + TOBA + OIND + FLOW + OFAR + NURS + OCRO in DGPCM
 (Done in Python: **_Step_4_Crop_share.py → Section 4.5_**)
 
 ## Step 5: Generating crop-specific AEI for 2010–2020
-- 5.1	At 1km gridded level, multiplying AEI generated in Step 03 and crop share in Step 4.4 to get crop-specific growing area for 16 crop types for year 2010-2020  
+- 5.1	At 1km gridded level, multiplying AEI generated in Step 03 and crop share in Step 4.4 to get crop-specific irrigation area for 16 crop types for year 2010-2020  
   (Done in Python: **_Step_5_Crop_AEI.py → Section 5.1_**, ha * 1000,000).
-- 5.2 Conducting Zonal statistic for crop-specific AEI (generated in Step 5.1) at the NUTS2 level.   
+- 5.2 Conducting Zonal statistics for crop-specific AEI (generated in Step 5.1) at the NUTS2 level.   
   (Done in Python: **_Step_5_Crop_AEI.py → Section 5.2_**).
 
 ## Step 6: Generating crop-specific AAI for 2010–2020
