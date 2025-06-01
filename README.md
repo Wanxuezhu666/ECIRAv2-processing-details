@@ -127,21 +127,36 @@ Multiplying AAI calibration coefficients (generated in step 6.2) with crop-AEI (
 
 ## Step 7: Constrain total AAI <= 100 ha per 1km grid (Update compared to ECRIA version 1)  
 - 7.1 Calculate initial total AAI (= sum of crop-specific AAI generated in step 6.3), which could be larger than 100.   
-  (Done in Python: **_Step_7_Constrain_AAI_max_100.py_ → Section 7.1_**)
+  (Done in Python: **_Step_7_Constrain_AAI_max_100.py → Section 7.1_**)
 - 7.2 Constrain the total AAI <= 100 ha for each 1km grid  
-  (Done in Python: **_Step_7_Constrain_AAI_max_100.py_ → Section 7.2_**)
+  (Done in Python: **_Step_7_Constrain_AAI_max_100.py → Section 7.2_**)
 - 7.3 Calculate Total AAI loss after constraining within 100 ha (optional)
-  (Done in Python: **_Step_7_Constrain_AAI_max_100.py_ → Section 7.3_**)
+  (Done in Python: **_Step_7_Constrain_AAI_max_100.py → Section 7.3_**)
 - 7.4 Calculate calibration value to constrain Total AAI <= 100
   AAI_calibration_100 = 100 / sum of crop-specific AAI (generated in step 6.3)
-  (Done in Python: **_Step_7_Constrain_AAI_max_100.py_ → Section 7.4_**)
+  (Done in Python: **_Step_7_Constrain_AAI_max_100.py → Section 7.4_**)
 - 7.5 Generate final crop-specific AAI
   **_Final crop AAI = initial crop AAI (in step 6.3) * AAI_calibration_100 (in step 7.4)_**
-  (Done in Python: **_Step_7_Constrain_AAI_max_100.py_ → Section 7.5_**)
+  (Done in Python: **_Step_7_Constrain_AAI_max_100.py → Section 7.5_**)
 - 7.6 Update the total AAI
-  (Done in Python: **_Step_7_Constrain_AAI_max_100.py_ → Section 7.6_**)
+  (Done in Python: **_Step_7_Constrain_AAI_max_100.py → Section 7.6_**)
 
-## Step 8: 
+## Step 8: Generate new UAA, crop growing and rainfed area (Update compared to ECRIA version 1)
+- 8.1 Generate new UAA = maximum (old UAA from DGPCM 'weight' in step 4.1, total AAI in step 7.6)   
+  (Done in Python: **_Step_8_Crop_growing_area.py → Section 8.1_**)   
+- 8.2 Update crop growing area = UAA (step 8.1) * crop share (step 4.4)   
+  Note, this is not the final crop growing area!!! The final one is in step 8.5.   
+  (Done in Python: **_Step_8_Crop_growing_area.py → Section 8.2_**) 
+- 8.3 Calculate crop-specific rainfed area   
+  Crop rainfed area = crop growing area (step 8.2) - crop irrigated area (step 7.5)   
+  If the crop rainfed area is negative, revised as 0.   
+  (Done in Python: **_Step_8_Crop_growing_area.py → Section 8.3_**)   
+- 8.4 Calculate the total rainfed area = sum of crop-specific rainfed area   
+  (Done in Python: **_Step_8_Crop_growing_area.py → Section 8.4_**)   
+- 8.5 Update the crop growing area    
+  Crop growing area = crop irrigated area (step 7.5) + crop rainfed area (step 8.3)   
+  This is the final crop growing area!!!   
+  (Done in Python: **_Step_8_Crop_growing_area.py → Section 8.5_**) 
 
 
 
