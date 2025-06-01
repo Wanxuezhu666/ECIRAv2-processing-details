@@ -1,3 +1,8 @@
+"""
+Updated: Wanxue Zhu (wanxue.zhu@agr.uni-goettingen.de)
+Date: 2025-June-01
+"""
+
 import pandas as pd
 import os
 import geopandas as gpd
