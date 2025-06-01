@@ -1,4 +1,7 @@
-
+"""
+Updated: Wanxue Zhu (wanxue.zhu@agr.uni-goettingen.de)
+Date: 2025-June-01
+"""
 import rasterio
 import numpy as np
 import glob
