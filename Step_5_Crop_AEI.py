@@ -58,7 +58,7 @@ for num in range(11):
                            f'Step_05/Crop_AEI_1km_grid/{year}/crop_AEI_{year}_layer_{crop_id+1}.tif')
 
 # Crop AEI = crop area * AEI/UAA = crop share * UAA * AEI/UAA = crop share * AEI
-# crop AEI: 0 - 1000 
+# crop AEI: 0 - 10000 
 
 
 # 5.2 Conduct NUTS2 level zonal statistics
@@ -85,7 +85,7 @@ def add_field_shapfile(shapefile_path,tif_path,field_name):
     gdf = gpd.read_file(shapefile_path)
     with rasterio.open(tif_path) as src:
         affine = src.transform
-        array = src.read(1)  # 读取第一个波段的数据
+        array = src.read(1) 
     stats = zonal_stats(gdf.geometry, array, affine=affine, stats='sum', nodata=-9999)
     #gdf[field_name] = [stat['sum'] for stat in stats]
     gdf[field_name] = [int(stat['sum']) if stat['sum'] is not None else 0 for stat in stats]
@@ -95,7 +95,7 @@ def add_field_shapfile(shapefile_path,tif_path,field_name):
 def add_field_shapfile_more(gdf,tif_path,field_name):
     with rasterio.open(tif_path) as src:
         affine = src.transform
-        array = src.read(1)  # 读取第一个波段的数据
+        array = src.read(1) 
     stats = zonal_stats(gdf.geometry, array, affine=affine, stats='sum', nodata=-9999)
     #gdf[field_name] = [stat['sum'] for stat in stats]
     gdf[field_name] = [int(stat['sum']) if stat['sum'] is not None else 0 for stat in stats]
