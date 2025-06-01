@@ -30,21 +30,29 @@ _Input data source:_
 ## 3. Generating 1km gridded AEI in 2010   
 **Method:** QGIS + Python (Step_03_AEI_1km.py)
 - 3.1 Transfer GMIA 0.01 arc degree raster data for Europe (*i.e., AEI 2005 at 0.01 arc degree, corresponding to 1.11 km at the equator*) into a points shapefile. 
-(Done in QGIS)   
+(Done in QGIS)
+  
 - 3.2 Transfer HID 5 arc min raster data for Europe (*i.e., AEI 2010 at 5 arc min, corresponding to approximately 9.3 km at the equator*) into a grid vector shapefile.
-(Done in QGIS)   
+(Done in QGIS)
+
 - 3.3 Perform Zonal Statistical calculations to compute the mean of all points within the 5 arc minute grids generated in step 2, and create a new grid shapefile.
 (Done in QGIS)
+
 - 3.4 Resample GMIA (AEI 2005) from 0.01 arc degree to 1 km grid.
 (Done in Python: Step_3_AEI_1km.py → Section 3.4).
+
 - 3.5 Convert the shapefile generated in step 3.3 into a TIFF file. This will create the GMIA AEI 2005 5 arc min TIFF file.  
 (Done in Python: Step_3_AEI_1km.py → Section 3.5).
+
 - 3.6 At the 5-arc-minute grid, calculate the correction coefficients between GMIA (AEI 2005) and HID (AEI 2010) to obtain the coefficients at 5 arc min, then resample them to 1km.
 (Done in Python: Step_3_AEI_1km.py → Section 3.6).
+
 - 3.7 At 1km grid level, multiply the GMIA obtained in step 3.4 by the coefficients obtained in step 3.6.  
 (Done in Python: Step_3_AEI_1km.py → Section 3.7).
+
 - 3.8 A revision was made to constrain the total AEI to a maximum of 100 hectares.  
 (Done in Python: Step_3_AEI_1km.py → Section 3.8)
+
 - 3.9 Add data for Cyprus using AEI 2010 1km from the resampling of 5 arc min.  
    **（Update compared to ECRIA version 1）**  
 As the AEI 2005 dataset at 0.01 arc degree resolution does not include data for Cyprus, we used data for Cyprus from the AEI 2010 dataset at 5 arc minutes resolution. Specifically, we resampled the AEI 2010 data from 5 arc minutes to 1 km resolution and integrated the Cyprus data into the AEI 2010 dataset at 1 km produced in Step 3.8, thus generating the final AEI for 2010 at 1 km resolution.
@@ -52,12 +60,15 @@ As the AEI 2005 dataset at 0.01 arc degree resolution does not include data for 
 ## Step 4: Generating annual 1km gridded crop-specific share and growing area for 2010–2020
  - 4.1	Split the multi-layer raster data from DGPCM into individual single-layer rasters. Layer 0 is **UAA**, layers 1–28 are **expected crop growing share.**  
    (Done in Python: **_Step_4_Crop_share.py → Section 4.1_**).
+   
  - 4.2	Revise UAA maximum (provided by the ‘weight’ column in DGPCM) as 100 hectares in each 1km pixel.
    Note this is not the final UAA, we will update the UAA further after calculating total irrigated area. **（Update compared to ECRIA version 1）**  
    The updated UAA = maximum (UAA here, total AAI)
    (Done in Python: **_Step_4_Crop_share.py → Section 4.2_**).
+   
  - 4.3	Calculate UAA loss caused by revising the maximum UAA to 100 hectares  
    (optional, Done in Python: **_Step_4_Crop_share.py → Section 4.3_**).
+   
  - 4.4  Note that we aggregated some crop types as follows,  
    (Done in Python: **_Step_4_Crop_share.py → Section 4.4_**)
 
@@ -93,23 +104,25 @@ Note: OTHER = ROOF + SOYA + TOBA + OIND + FLOW + OFAR + NURS + OCRO in DGPCM
 
 ## Step 5: Generating crop-specific AEI for 2010–2020
 - 5.1	At 1km gridded level, multiplying AEI generated in Step 03 and crop share in Step 4.4 to get crop-specific irrigation area for 16 crop types for year 2010-2020  
+  **_Crop AEI = crop area * AEI/UAA = crop share * UAA * AEI/UAA = crop share * AEI_**   
   (Done in Python: **_Step_5_Crop_AEI.py → Section 5.1_**, ha * 1000,000).
+  
 - 5.2 Conducting Zonal statistics for crop-specific AEI (generated in Step 5.1) at the NUTS2 level.   
   (Done in Python: **_Step_5_Crop_AEI.py → Section 5.2_**).
 
-## Step 6: Generating crop-specific AAI for 2010–2020
+## Step 6: Calibration crop-specific AEI
 - 6.1	We calculated crop-specific, year-specific AAI calibration coefficients of each NUTS2 unit.  
-  (Done in Python: **_Step_6_Calibration.py → Section 6.1_**)  
-Then manually check the .xlsx file, to fill no data as zero, and ‘inf’ as zero.
+  (Done in Python: **_Step_6_Calibration_crop_AEI.py → Section 6.1_**)  
+
 - 6.2	Generating 1 km gridded AAI calibration coefficients  
-  (Done in Python: **_Step_6_Calibration.py → Section 6.2_**)
-We matched above NUTS2 level coefficients (generated in step 6.1) with 1 km grid (each grid contains NUTS2 code), to generate grid level AAI calibration coefficients.
+  (Done in Python: **_Step_6_Calibration_crop_AEI.py → Section 6.2_**)
+We matched the above NUTS2 level coefficients (generated in step 6.1) with THE 1 km grid (each grid contains NUTS2 code), to generate grid-level AAI calibration coefficients.
 
 **How to generate crop grids with NUTS2 ID?**    
 Done in Python: _01_Get_NUTS_ID_for_grid.py_
 
 - 6.3	Generating 1 km gridded crop-specific, year-specific AAI  
-  (Done in Python: **Step_6_Calibration.py → Section 6.3_**)
+  (Done in Python: **Step_6_Calibration_crop_AEI.py → Section 6.3_**)
 Multiplying AAI calibration coefficients (generated in step 6.2) with crop-AEI (generated in step 5.2).
 
 ## Step 07: Generating total AAI for 2010–2020
