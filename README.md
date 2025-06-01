@@ -21,13 +21,13 @@ Abbreviations:
   
 _Input data source:_
 
-## 1. Generating NUTS2-level annual total AAI for 2010-2020    
+## Step 1: Generating NUTS2-level annual total AAI for 2010-2020    
 **Method:** Manual (see the manuscript)  
 
-## 2. Generating NUTS2-level annual crop-specific AAI for 2010-2020   
+## Step 2: Generating NUTS2-level annual crop-specific AAI for 2010-2020   
 **Method:** Manual (see the manuscript)  
 
-## 3. Generating 1km gridded AEI in 2010   
+## Step 3: Generating 1km gridded AEI in 2010   
 **Method:** QGIS + Python (Step_03_AEI_1km.py)
 - 3.1 Transfer GMIA 0.01 arc degree raster data for Europe (*i.e., AEI 2005 at 0.01 arc degree, corresponding to 1.11 km at the equator*) into a points shapefile. 
 (Done in QGIS)
@@ -122,12 +122,28 @@ We matched the above NUTS2 level coefficients (generated in step 6.1) with THE 1
 Done in Python: _01_Get_NUTS_ID_for_grid.py_
 
 - 6.3	Generating 1 km gridded crop-specific, year-specific AAI  
-  (Done in Python: **Step_6_Calibration_crop_AEI.py → Section 6.3_**)
+  (Done in Python: **_Step_6_Calibration_crop_AEI.py → Section 6.3_**)
 Multiplying AAI calibration coefficients (generated in step 6.2) with crop-AEI (generated in step 5.2).
 
-## Step 07: Generating total AAI for 2010–2020
-Sum up crop-specific AAI for each year to generate the total AAI.    
-(Done in Python: **Step_7_Total_AAI.py_**)
+## Step 7: Constrain total AAI <= 100 ha per 1km grid (Update compared to ECRIA version 1)  
+- 7.1 Calculate initial total AAI (= sum of crop-specific AAI generated in step 6.3), which could be larger than 100.   
+  (Done in Python: **_Step_7_Constrain_AAI_max_100.py_ → Section 7.1_**)
+- 7.2 Constrain the total AAI <= 100 ha for each 1km grid  
+  (Done in Python: **_Step_7_Constrain_AAI_max_100.py_ → Section 7.2_**)
+- 7.3 Calculate Total AAI loss after constraining within 100 ha (optional)
+  (Done in Python: **_Step_7_Constrain_AAI_max_100.py_ → Section 7.3_**)
+- 7.4 Calculate calibration value to constrain Total AAI <= 100
+  AAI_calibration_100 = 100 / sum of crop-specific AAI (generated in step 6.3)
+  (Done in Python: **_Step_7_Constrain_AAI_max_100.py_ → Section 7.4_**)
+- 7.5 Generate final crop-specific AAI
+  **_Final crop AAI = initial crop AAI (in step 6.3) * AAI_calibration_100 (in step 7.4)_**
+  (Done in Python: **_Step_7_Constrain_AAI_max_100.py_ → Section 7.5_**)
+- 7.6 Update the total AAI
+  (Done in Python: **_Step_7_Constrain_AAI_max_100.py_ → Section 7.6_**)
+
+## Step 8: 
+
+
 
 
 
