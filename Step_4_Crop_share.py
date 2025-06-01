@@ -79,10 +79,10 @@ def extract_crop_share_layers(input_folder, crop_output_folder):
                     dst.write(band, 1)
 
 
-input_folder = 'E:/01_Reseach_papers/R1_irrigation_grid_map/Data/DGPCM'
-uaa_output_folder = r'E:\01_Reseach_papers\R1_irrigation_grid_map\Depository\Step_04\UAA_2010_2020'
+input_folder = r'xxx\Data\DGPCM'
+uaa_output_folder = r'xxx\Step_04\UAA_2010_2020'
 
-crop_output_folder = r'E:\01_Reseach_papers\R1_irrigation_grid_map\Depository\Step_04\Crop_share'
+crop_output_folder = r'xxx\Step_04\Crop_share'
 
 extract_UAA_layer(input_folder, uaa_output_folder)
 extract_crop_share_layers(input_folder, crop_output_folder)
@@ -116,8 +116,8 @@ def process_all_geotiffs(input_folder, output_folder):
             process_geotiff(input_path, output_path)
 
 
-input_folder = r'E:\01_Reseach_papers\R1_irrigation_grid_map\Depository\Step_04\UAA_2010_2020'  
-output_folder = r'E:\01_Reseach_papers\R1_irrigation_grid_map\Depository\Step_04\UAA_2010_2020_revised_100'  
+input_folder = r'xxx\Depository\Step_04\UAA_2010_2020'  
+output_folder = r'xxx\Step_04\UAA_2010_2020_revised_100'  
 
 process_all_geotiffs(input_folder, output_folder)
 
@@ -154,8 +154,8 @@ def traverse_and_process(input_directory, output_directory):
                 print(f"Processed {input_file} -> {output_file}")
 
 
-input_directory = r'E:\01_Reseach_papers\R1_irrigation_grid_map\Depository\Step_04\UAA_2010_2020'
-output_directory = r'E:\01_Reseach_papers\R1_irrigation_grid_map\Depository\Step_04\UAA_2010_2020_loss'
+input_directory = r'xxx\Step_04\UAA_2010_2020'
+output_directory = r'xxx\Step_04\UAA_2010_2020_loss'
 
 
 traverse_and_process(input_directory, output_directory)
@@ -179,7 +179,7 @@ import rasterio
 from rasterio.mask import mask
 
 
-os.chdir(r"E:\01_Reseach_papers\R1_irrigation_grid_map\Depository\Step_04") 
+os.chdir(r"xxx\Step_04") 
 
 """
 CERE (layer 29) = soft wheat (layer 24) + durum wheat (4) + barley (2) + rye (20) + oats (10) + other cereals (11)
@@ -323,8 +323,8 @@ def batch_process_crop_share_sum(parent_folder, output_folder, years):
             print(f"no folder {folder_path}, jump")
 
 
-parent_path = r"E:\01_Reseach_papers\R1_irrigation_grid_map\Depository\Step_04\Crop_share"  # 替换为实际路径
-output_path = r"E:\01_Reseach_papers\R1_irrigation_grid_map\Depository\Step_04\Crop_share\check_sum"       # 用于保存sum结果的目录
+parent_path = r"xxx\Step_04\Crop_share"  
+output_path = r"xxx\Step_04\Crop_share\check_sum"   
 batch_process_crop_share_sum(parent_path, output_path, years=range(2010, 2021))
 
 
