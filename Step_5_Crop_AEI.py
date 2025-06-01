@@ -18,7 +18,7 @@ import rasterio
 from rasterio.mask import mask
 
 
-os.chdir(r"E:\01_Reseach_papers\R1_irrigation_grid_map\Depository") 
+os.chdir(r"xxx") 
 
 # 5.1  Generate 1km gridded crop-specific AEI
 #================================================================================
@@ -79,7 +79,7 @@ from rasterstats import zonal_stats
 from shapely.geometry import box
 import os
 
-os.chdir(r"E:\01_Reseach_papers\R1_irrigation_grid_map\Depository\Step_05") 
+os.chdir(r"xxx\Step_05") 
 
 def add_field_shapfile(shapefile_path,tif_path,field_name):
     gdf = gpd.read_file(shapefile_path)
