@@ -42,9 +42,10 @@ Input data source:
 (Done in Python: Step_3_AEI_1km.py → Section 3.6).
 - 3.7 At 1km grid level, multiply the GMIA obtained in step 3.4 by the coefficients obtained in step 3.6.
 (Done in Python: Step_3_AEI_1km.py → Section 3.7).
-- 3.8 A revision was made to constrain the final AEI to a maximum of 100 hectares.
+- 3.8 A revision was made to constrain the total AEI to a maximum of 100 hectares.
 (Done in Python: Step_3_AEI_1km.py → Section 3.8)
 - 3.9 Add data for Cyprus using AEI 2010 1km from the resampling of 5 arc min **（Update compared to ECRIA version 1）**
+As the AEI 2005 dataset at 0.01 arc degree resolution does not include data for Cyprus, we used data for Cyprus from the AEI 2010 dataset at 5 arc minutes resolution. Specifically, we resampled the AEI 2010 data from 5 arc minutes to 1 km resolution and integrated the Cyprus data into the AEI 2010 dataset at 1 km produced in Step 3.8, thus generating the final AEI for 2010 at 1 km resolution.
 
 
 
