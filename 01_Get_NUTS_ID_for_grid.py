@@ -44,9 +44,9 @@ def assign_nuts_to_raster(boundary_shapefile, raster_file, output_raster):
 
 # 示例用法
 assign_nuts_to_raster(
-    'D:/02_CRC_project/13_Grid_crop_specific_AAI/11_Zonal_calibration/NUS2010_NUTS2_01m_3035.shp',
-    'E:/01_Reseach_papers/FA_Pre_irrigation_grid_map/Depository/Input_01_PCTM/UAA_2010_2020_revised_100/UAA_2010.tif',
-    'E:/01_Reseach_papers/FA_Pre_irrigation_grid_map/Depository/Input_01_PCTMGrid_ID_22.tif'
+    'NUS2010_NUTS2_01m_3035.shp',
+    'UAA_2010.tif',
+    'Input_01_PCTMGrid_ID_22.tif'
 )
 
 
