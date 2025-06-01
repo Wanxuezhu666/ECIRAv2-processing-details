@@ -9,7 +9,7 @@ import os
 from osgeo import gdal
 
 
-os.chdir(r"E:\01_Reseach_papers\R1_irrigation_grid_map\Depository\Step_03") 
+os.chdir(r"xxxx\Step_03") 
 
 # 3.4. Resampling GMIA 2005 from 0.01 arc degree (about 1.11 km at the equator) to 1km
 # Note that no data for Cyprus
@@ -177,7 +177,7 @@ multiply_tif('Coefficients_1km.tif',
 
 
 
-# 3.8 Revise the maximum AEI as 100 hectare
+# 3.8 Revise the maximum AEI as 100 hectares
 #================================================================================
 
 import os
@@ -193,8 +193,8 @@ def process_geotiff(input_path, output_path):
             dst.write(img_array, 1)
 
 # Define the input and output paths for a single TIFF file
-input_path = r'E:\01_Reseach_papers\R1_irrigation_grid_map\Depository\Step_03\AEI_share_2010_1km.tif'  # Replace with your file path
-output_path = r'E:\01_Reseach_papers\R1_irrigation_grid_map\Depository\Step_03\AEI_share_2010_1km_max_100.tif'  # Replace with your output path
+input_path = r'xxx\Step_03\AEI_share_2010_1km.tif'  # Replace with your file path
+output_path = r'xxx\Step_03\AEI_share_2010_1km_max_100.tif'  # Replace with your output path
 
 # Process the single TIFF file
 process_geotiff(input_path, output_path)
@@ -208,7 +208,7 @@ from rasterio.warp import reproject, Resampling
 import numpy as np
 import os
 
-os.chdir(r"E:\01_Reseach_papers\R1_irrigation_grid_map\Depository\Step_03") 
+os.chdir(r"xxx\Step_03") 
 
 
 def fill_A_with_B(tifA_path, tifB_path, output_path, nodata_A=None, nodata_B=None):
