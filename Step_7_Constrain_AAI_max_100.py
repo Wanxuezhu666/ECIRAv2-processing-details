@@ -8,7 +8,7 @@ import os
 # Step 7.1 Calculate initial total AAI, Which could be larger than 100
 #================================================================================
 
-os.chdir(r"E:\01_Reseach_papers\R1_irrigation_grid_map\Depository\Step_07") 
+os.chdir(r"xxx\Step_07") 
 
 def sum_total_AAI(input_folder, output_file):
     geotiff_files = glob.glob(os.path.join(input_folder, '*.tif'))
@@ -39,7 +39,7 @@ for i in range(11):
 # 7.2 Constrain total AAI <= 100 ha per 1km grid
 #================================================================================
 
-os.chdir(r"E:\01_Reseach_papers\R1_irrigation_grid_map\Depository\Step_07") 
+os.chdir(r"xxx\Step_07") 
 
 def total_AAI_max100(input_folder, output_folder, target_max=100):
     if not os.path.exists(output_folder):
@@ -62,7 +62,7 @@ total_AAI_max100('Total_AAI', 'Total_AAI_max100', target_max=100)
 # 7.3 Calculate Total AAI loss after constraining within 100 ha (optional)
 #================================================================================
 
-os.chdir(r"E:\01_Reseach_papers\R1_irrigation_grid_map\Depository\Step_07") 
+os.chdir(r"xxx\Step_07") 
 
 def total_AAI_lose(folder1, folder2, out_folder, start_year=2010, end_year=2020):
     os.makedirs(out_folder, exist_ok=True)
@@ -87,7 +87,7 @@ total_AAI_lose("Total_AAI", "Total_AAI_max100", "Total_AAI_lose")
 # 7.4 Calculate calibration value to constrain Total AAI <= 100
 #================================================================================
 
-os.chdir(r"E:\01_Reseach_papers\R1_irrigation_grid_map\Depository\Step_07") 
+os.chdir(r"xxx\Step_07") 
 
 def divide_geotiff(A_path, B_path, out_path, out_nodata=None):
     with rasterio.open(A_path) as srcA, rasterio.open(B_path) as srcB:
@@ -139,7 +139,7 @@ import glob
 import rasterio
 import numpy as np
 
-os.chdir(r"E:\01_Reseach_papers\R1_irrigation_grid_map\Depository\Step_07") 
+os.chdir(r"xxx\Step_07") 
 
 def multiply_geotiff(input_path1, input_path2, output_path):
     with rasterio.open(input_path1) as src1, rasterio.open(input_path2) as src2:
@@ -159,7 +159,7 @@ def calculation_crop_AAI(start_year=2010, end_year=2020):
     for year in range(start_year, end_year + 1):
         input1_dir = f"Crop-specific_AAI/{year}"
         input2_path = f"Calibration/Calibration_IR_A_{year}.tif"
-        output_dir = f"E:/01_Reseach_papers/R1_irrigation_grid_map/Depository/ECIRA_v2/Crop_IR/{year}"
+        output_dir = f"xxx/ECIRA_v2/Crop_IR/{year}"
         os.makedirs(output_dir, exist_ok=True)
         tifs = glob.glob(f"{input1_dir}/*.tif")
         for tif_path in tifs:
@@ -173,14 +173,14 @@ calculation_crop_AAI()
 
 # Crop AAI range: 1-100
 
-# check_double_folder(r"E:\01_Reseach_papers\R1_irrigation_grid_map\Depository\ECIRA_v2\Crop_IR")
+# check_double_folder(r"xxx\ECIRA_v2\Crop_IR"), this folder is the crop-specific irrigated area
 # see Step 9
 
 
 # 7.6 Calculate Total AAI
 #================================================================================
 
-os.chdir(r"E:\01_Reseach_papers\R1_irrigation_grid_map\Depository\ECIRA_v2") 
+os.chdir(r"xxx\ECIRA_v2") 
 
 def calculate_total_AAI(input_folder, output_file, max_value = 100):
     geotiff_files = glob.glob(os.path.join(input_folder, '*.tif'))
