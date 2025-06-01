@@ -1,4 +1,4 @@
-# Processing details of the Euprean Crop-specific Irrigation Area Dataset Version 2 (ECIRAv2)
+# Processing details of the European Crop-specific Irrigation Area Dataset Version 2 (ECIRAv2)
 
 **Contact:** Wanxue Zhu (wanxue.zhu@agr.uni-goettingen.de)  
 *Department of Crop Sciences, University of Göttingen, Von-Siebold-Str. 8, 37075 Göttingen, Germany*  
@@ -11,11 +11,46 @@ The European Crop-specific IRrigated Area Dataset (ECIRA) provides data on the a
 28 European countries are included: Austria, Belgium, Bulgaria, Cyprus, the Czech Republic, Germany, Denmark, Estonia, Greece, Spain, Finland, France, Croatia, Hungary, Ireland, Italy, Lithuania, Luxembourg, Latvia, Malta, Netherlands, Poland, Portugal, Romania, Sweden, Slovenia, Slovakia, and the United Kingdom.
 
 This document outlines the detailed methodology used to generate the ECIRA dataset version 2, which is organized into distinct processing steps.  
-**Compared to version 1, the main improvement is the addition of a calibration step to ensure that the total AAI does not exceed 100 hectares per 1-km grid.**
+**Compared to version 1, the main improvement is adding a calibration step to ensure that the sum of 16 crop-specific irrigated (rainfed, total) areas does not exceed 100 hectares per 1-km grid.**
 
 Abbreviations:
 
-- **AAI** (in hectares): Irrigated area, namely area actually received irrigation.
-- **AEI** (in hectares): Irrigable area, namely area equipped with irrigation infrastructure without considering the actual irrigation is applied or not.
+- **AAI** (in hectares): Irrigated area, namely the area actually receiving irrigation.
+- **AEI** (in hectares): Irrigable area, namely the area equipped with irrigation infrastructure, without considering whether  the actual irrigation is applied or not. (AEI >= AAI)
 - **UAA** (in hectares): Utilized agricultural land.
 Input data source:
+
+## 1. Generating NUTS2-level annual total AAI for 2010-2020  
+**Method:** Manual (see the manuscript)  
+
+## 2. Generating NUTS2-level annual crop-specific AAI for 2010-2020
+**Method:** Manual (see the manuscript)  
+
+## 3. Generating 1km gridded AEI in 2010
+**Method:** QGIS + Python (Step_03_AEI_1km.py)
+ [`Step_3_AEI_1km.py`](scripts/Step_3_AEI_1km.py)
+- 3.1 Transfer GMIA 0.01 arc degree raster data (AEI 2005 at 0.01 arc degree) into a points shapefile.
+(Done in QGIS)
+- 3.2 Transfer HID 5 arc min raster data (AEI 2010 at 5 arc min) into a grid vector shapefile.
+(Done in QGIS)
+- 3.3 Perform Zonal Statistical calculations to compute the mean of all points within the 5 arc minute grids generated in step 2, and create a new grid shapefile.
+(Done in QGIS)
+- 3.4 Resample GMIA (AEI 2005) from 0.01 arc degree to 1 km grid.
+(Done in Python: Step_3_AEI_1km.py → Section 3.4).
+- 3.5 Convert the shapefile generated in step 3.3 into a TIFF file. This will create the GMIA AEI 2005 5 arc min TIFF file.
+(Done in Python:Step_3_AEI_1km.py → Section 3.5).
+- 3.6 At the 5-arc minute grid, calculate the correction coefficients between GMIA (AEI 2005) and HID (AEI 2010) to obtain the coefficients at 5 arc min, then resample it to 1km.
+(Done in Python:Step_3_AEI_1km.py → Section 3.6).
+- 3.7 At 1km grid level, multiply the GMIA obtained in step 3.4 by the coefficients obtained in step 3.6.
+(Done in Python:Step_3_AEI_1km.py → Section 3.7).
+- 3.8 Revised the maximum final AEI cannot be over 100 hectares.
+(Done in Python:Step_3_AEI_1km.py → Section 3.8)
+
+
+
+
+
+
+
+
+
