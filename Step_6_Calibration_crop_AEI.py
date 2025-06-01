@@ -10,7 +10,7 @@ import numpy as np
 from osgeo import gdal, gdalconst
 
 
-os.chdir(r"E:\01_Reseach_papers\R1_irrigation_grid_map\Depository") 
+os.chdir(r"xxx") 
 
 # 6.1 NUTS2 level, calculate crop-specific AAI calibration coefficients
 #================================================================================
